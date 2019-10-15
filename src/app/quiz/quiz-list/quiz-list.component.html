@@ -1,0 +1,12 @@
+<mat-card *ngFor="let quiz of quizzes" class="example-card">
+    <mat-card-title>{{quiz.name}}</mat-card-title>
+    <mat-card-subtitle>
+      <div class="info" fxLayout="row" fxLayoutAlign="space-between start">
+        <p>{{quiz.questions.length}} questions</p>
+        <p>two</p>
+        <mat-card-actions>
+          <button [routerLink]="['/quiz', quiz.id]" mat-button>START</button>
+        </mat-card-actions>
+      </div>
+    </mat-card-subtitle>
+</mat-card>
