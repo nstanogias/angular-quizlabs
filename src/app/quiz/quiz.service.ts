@@ -40,6 +40,9 @@ export class QuizService {
       }));
   }
 
+  getQuiz(id: string): Quiz {
+    return this.quizzes.find(quiz => quiz.id === id);
+  }
   cancelSubscriptions() {
     this.fbSubs.forEach(sub => sub.unsubscribe());
   }

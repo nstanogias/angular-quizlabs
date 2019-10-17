@@ -7,6 +7,8 @@ import {QuizRoutingModule} from './quiz-routing.module';
 import {QuizComponent} from './quiz.component';
 import { QuizStartComponent } from './quiz-start/quiz-start.component';
 import { QuizReportComponent } from './quiz-report/quiz-report.component';
+import { CountdownModule } from 'ngx-countdown';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { QuizReportComponent } from './quiz-report/quiz-report.component';
   ],
   imports: [
     SharedModule,
-    QuizRoutingModule
+    QuizRoutingModule,
+    CountdownModule
   ]
 })
 export class QuizModule {}

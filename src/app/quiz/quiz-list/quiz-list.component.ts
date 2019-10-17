@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Quiz} from '../quiz.model';
 
 @Component({
@@ -6,11 +6,8 @@ import {Quiz} from '../quiz.model';
   templateUrl: './quiz-list.component.html',
   styleUrls: ['./quiz-list.component.css']
 })
-export class QuizListComponent implements OnInit {
+export class QuizListComponent {
   @Input() quizzes: Quiz[];
   constructor() { }
-
-  ngOnInit() {
-  }
 
 }

@@ -1,0 +1,20 @@
+.example-card {
+  margin-top: 15px;
+}
+
+mat-card-subtitle {
+  width: 100%;
+  height: 40px;
+}
+
+.info {
+  max-height: 40px;
+}
+
+.remove-margin-start {
+  margin-block-start: 0px;
+}
+
+.remove-margin-end {
+  margin-block-end: 5px;
+}

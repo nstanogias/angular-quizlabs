@@ -8,8 +8,8 @@ import {QuizReportComponent} from './quiz-report/quiz-report.component';
 const routes: Routes = [
   {path: '', component: QuizComponent},
   {path: ':id', component: CurrentQuizComponent},
-  {path: ':id/start', component: QuizStartComponent},
-  {path: ':id/report', component: QuizReportComponent}
+  {path: 'start/:id', component: QuizStartComponent},
+  {path: 'report/:id', component: QuizReportComponent}
 ];
 
 @NgModule({

@@ -1,1 +1,41 @@
-<p>current-quiz works!</p>
+<mat-card class="example-card">
+  <mat-card-title>{{quiz.name}}</mat-card-title>
+  <hr>
+  <mat-card-subtitle>
+    <h3 class="remove-margin-end">Quiz Details</h3>
+    <div class="info" fxLayout="row" fxLayoutAlign="space-between start">
+      <p class="remove-margin-start">
+        <mat-icon>question_answer</mat-icon>{{quiz.questions.length}} questions
+      </p>
+      <p class="remove-margin-start">
+        <mat-icon>timer</mat-icon>Time {{quiz.timeInMinutes}} minutes
+      </p>
+      <p class="remove-margin-start">
+        <mat-icon>list</mat-icon>Max marks {{quiz.questions.length}}
+      </p>
+      <p class="remove-margin-start">
+        <mat-icon>check_circle</mat-icon>Passing 80%
+      </p>
+    </div>
+  </mat-card-subtitle>
+  <mat-card-content>
+    <h3>
+      Exam Instruction
+    </h3>
+    <ol>
+      <li>
+        <p>The exam comprises of Multiple Choice Single Response questions.</p>
+      </li>
+      <li>
+        <p>There is no negative marking.</p>
+      </li>
+      <li>
+        <p>There is a timer that indicates the time remaining for the completion of the exam.</p>
+      </li>
+    </ol>
+  </mat-card-content>
+  <mat-card-actions>
+    <button (click)="startQuiz()" mat-button>Start quiz</button>
+  </mat-card-actions>
+</mat-card>
+

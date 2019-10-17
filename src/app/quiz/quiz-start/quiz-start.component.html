@@ -1,1 +1,35 @@
-<p>quiz-start works!</p>
+<div fxLayout="column" fxLayoutAlign="center center">
+  <h1>{{quiz.name}}</h1>
+  <mat-card>
+    <div fxLayout="row" fxLayoutAlign="space-between start">
+      <span>Question: {{index}} of {{quiz.questions.length}}</span>
+      <div>
+        <countdown #cnt [config]="{leftTime: quiz.timeInMinutes}" (event)="onEvent($event)"></countdown>
+        <mat-icon (click)="cnt.pause()">pause_circle_outline</mat-icon>
+        <mat-icon (click)="cnt.resume()">play_circle_outline</mat-icon>
+      </div>
+    </div>
+    <hr>
+    <label id="example-radio-group-label">{{currentQuestion.question}}</label>
+    <mat-radio-group
+      aria-labelledby="example-radio-group-label"
+      class="example-radio-group">
+      <mat-radio-button *ngFor="let answer of currentQuestion.answers; let i = index"
+                        (click)="updateAnswer(i)"
+                        class="example-radio-button" [value]="answer"
+      >{{answer}}
+      </mat-radio-button>
+    </mat-radio-group>
+    <hr>
+    <div fxLayout="row" fxLayoutAlign="space-between start">
+      <mat-icon *ngIf="index > 0" (click)="previousQuestion()">chevron_left</mat-icon>
+      <mat-icon *ngIf="index < (quiz.questions.length - 1)" (click)="nextQuestion()">chevron_right</mat-icon>
+      <button
+        mat-raised-button color="primary"
+        *ngIf="index === quiz.questions.length - 1"
+        (click)="submitQuiz()"
+      >Submit
+      </button>
+    </div>
+  </mat-card>
+</div>
