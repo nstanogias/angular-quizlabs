@@ -1,1 +1,74 @@
-<p>quiz-report works!</p>
+<div fxLayout="column" fxLayoutAlign="center center">
+  <mat-card>
+    <div fxLayout="row" fxLayoutAlign="space-between start">
+      <h2>{{quizReport?.quizName}}</h2>
+      <span>Completed on {{quizReport?.date.toDate() | date: 'dd/MMMM/yyyy'}}</span>
+    </div>
+    <hr>
+    <div fxLayout="row" fxLayoutAlign="space-between start">
+      <div fxLayout="column" fxLayoutAlign="center">
+        <mat-icon>notes</mat-icon>
+        <h3>Marks Obtained</h3>
+        <span>{{marks}} / {{quizReport?.answersTable.length}}</span>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="center">
+        <mat-icon>score</mat-icon>
+        <h3>Your score</h3>
+        <span>{{marks / quizReport?.answersTable.length * 100}} %</span>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="center">
+        <mat-icon>timer</mat-icon>
+        <h3>Time Taken</h3>
+        <span>{{quizReport?.timeTakenInSec}} seconds</span>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="center">
+        <mat-icon>{{marks / quizReport?.answersTable.length * 100 >= 80 ? 'mood' : 'mood_bad'}}</mat-icon>
+        <h3>Result</h3>
+        <span>{{marks / quizReport?.answersTable.length * 100 >= 80 ? 'Passed' : 'Failed'}}</span>
+      </div>
+    </div>
+    <hr>
+  </mat-card>
+  <mat-card>
+    <h3>Quiz Performance Report</h3>
+    <hr>
+    <div fxLayout="row" fxLayoutAlign="space-between start" style="background-color: lightseagreen">
+      <h3>Total Questions</h3>
+      <h3>Correct</h3>
+      <h3>Incorrect</h3>
+      <h3>Unattempted</h3>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between start">
+      <span>{{quizReport?.answersTable.length}}</span>
+      <span>{{marks}}</span>
+      <span>{{quizReport?.answersTable.length - marks - unAttempted}}</span>
+      <span>{{unAttempted}}</span>
+    </div>
+  </mat-card>
+  <mat-card>
+    <h3>Review the Answers</h3>
+  </mat-card>
+  <mat-card *ngFor="let answer of quizReport?.answersTable; let qIndex = index">
+    <div fxLayout="row" fxLayoutAlign="space-between start" style="background-color: lightseagreen">
+      <h4>Question</h4>
+      <h4>Correct</h4>
+    </div>
+    <mat-list>
+      <p>{{quiz?.questions[qIndex].question}}</p>
+      <mat-list-item *ngFor="let ans of quiz?.questions[qIndex].answers; let ansIndex = index">
+        <h4 mat-line>{{ans}}</h4>
+        <mat-icon *ngIf="!(quizReport?.answersTable[qIndex] === quiz?.questions[qIndex].answer)
+          && ansIndex === quizReport?.answersTable[qIndex]"
+                  mat-list-icon
+                  style="background-color: crimson">
+          highlight_off
+        </mat-icon>
+        <mat-icon *ngIf="(ansIndex === quiz?.questions[qIndex].answer)"
+                  mat-list-icon
+                  style="background-color: green">
+          check_circle_outline
+        </mat-icon>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+</div>

@@ -5,9 +5,9 @@ import {PastAttemptsComponent} from './past-attempts/past-attempts.component';
 import {SharedModule} from '../shared/shared.module';
 import {QuizRoutingModule} from './quiz-routing.module';
 import {QuizComponent} from './quiz.component';
-import { QuizStartComponent } from './quiz-start/quiz-start.component';
-import { QuizReportComponent } from './quiz-report/quiz-report.component';
-import { CountdownModule } from 'ngx-countdown';
+import {QuizStartComponent} from './quiz-start/quiz-start.component';
+import {QuizReportComponent} from './quiz-report/quiz-report.component';
+import {CountdownModule} from 'ngx-countdown';
 
 
 @NgModule({
@@ -25,5 +25,6 @@ import { CountdownModule } from 'ngx-countdown';
     CountdownModule
   ]
 })
-export class QuizModule {}
+export class QuizModule {
+}
 

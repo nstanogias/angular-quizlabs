@@ -8,5 +8,5 @@ export interface Quiz {
 export interface Question {
   question: string;
   answer: number;
-  answers: Array<any>;
+  answers: Array<string>;
 }

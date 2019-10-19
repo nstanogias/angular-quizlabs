@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {QuizService} from './quiz.service';
 import {Quiz} from './quiz.model';
 import {Subscription} from 'rxjs';
@@ -15,7 +15,8 @@ export class QuizComponent implements OnInit, OnDestroy {
   private quizzesSubscription: Subscription;
   private loadingSubscription: Subscription;
 
-  constructor(private quizService: QuizService, private uiService: UIService) {}
+  constructor(private quizService: QuizService, private uiService: UIService) {
+  }
 
   ngOnInit() {
     this.loadingSubscription = this.uiService.loadingStateChanged.subscribe(

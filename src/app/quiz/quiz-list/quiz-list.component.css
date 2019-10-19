@@ -2,13 +2,13 @@ mat-card {
   width: 80%;
 }
 
-.example-card {
-  margin-top: 15px;
-}
-
 mat-card-subtitle {
   width: 100%;
   height: 40px;
+}
+
+.card {
+  margin-top: 15px;
 }
 
 .info {

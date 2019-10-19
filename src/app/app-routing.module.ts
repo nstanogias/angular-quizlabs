@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {WelcomeComponent} from './welcome/welcome.component';
 import {AuthGuard} from './auth/auth.guard';
 
 
 const routes: Routes = [
-  { path: '', component: WelcomeComponent },
-  { path: 'quiz', loadChildren: './quiz/quiz.module#QuizModule', canLoad: [AuthGuard]}
+  {path: '', component: WelcomeComponent},
+  {path: 'quiz', loadChildren: './quiz/quiz.module#QuizModule', canLoad: [AuthGuard]}
 ];
 
 @NgModule({
@@ -14,4 +14,5 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [AuthGuard]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

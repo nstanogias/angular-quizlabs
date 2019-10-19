@@ -1,4 +1,4 @@
-<div *ngIf="passedData.startQuiz">
+<div *ngIf="passedData?.startQuiz">
   <h1 mat-dialog-title>Start Quiz Now</h1>
   <mat-dialog-content>
     <p>The quiz has a time limit of {{ passedData?.timeInMin }}.
@@ -13,14 +13,10 @@
   </mat-dialog-actions>
 </div>
 
-<div *ngIf="passedData.submitQuiz">
-  <h1 mat-dialog-title>Start Quiz Now</h1>
+<div *ngIf="passedData?.submitQuiz">
+  <h1 mat-dialog-title>Confirmation</h1>
   <mat-dialog-content>
-    <p>The quiz has a time limit of {{ passedData?.timeInMin }}.
-      Time will count down from the moment you start your attempt and you must
-      submit before it expires</p>
-    <br>
-    <p>Are you sure that you wish to start now?</p>
+    <p>Do you really want to submit the Questions?</p>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-button [mat-dialog-close]="true">Yes</button>

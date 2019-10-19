@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Quiz} from '../quiz.model';
 import {QuizService} from '../quiz.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -13,10 +13,9 @@ import {MatDialog} from '@angular/material';
 export class CurrentQuizComponent {
 
   quiz: Quiz;
+
   constructor(private dialog: MatDialog, private quizService: QuizService, private router: Router, activatedRoute: ActivatedRoute) {
-    console.log(activatedRoute.snapshot.params.id);
-    console.log(quizService.getQuiz(activatedRoute.snapshot.params.id));
-    this.quiz = quizService.getQuiz(activatedRoute.snapshot.params.id);
+    this.quiz = quizService.getQuizById(activatedRoute.snapshot.params.id);
   }
 
   startQuiz() {
