@@ -9,12 +9,12 @@
       <div fxLayout="column" fxLayoutAlign="center">
         <mat-icon>notes</mat-icon>
         <h3>Marks Obtained</h3>
-        <span>{{marks}} / {{quizReport?.answersTable.length}}</span>
+        <span>{{quizReport?.marks}} / {{quizReport?.answersTable.length}}</span>
       </div>
       <div fxLayout="column" fxLayoutAlign="center">
         <mat-icon>score</mat-icon>
         <h3>Your score</h3>
-        <span>{{marks / quizReport?.answersTable.length * 100}} %</span>
+        <span>{{quizReport?.percentage | number}} %</span>
       </div>
       <div fxLayout="column" fxLayoutAlign="center">
         <mat-icon>timer</mat-icon>
@@ -22,9 +22,9 @@
         <span>{{quizReport?.timeTakenInSec}} seconds</span>
       </div>
       <div fxLayout="column" fxLayoutAlign="center">
-        <mat-icon>{{marks / quizReport?.answersTable.length * 100 >= 80 ? 'mood' : 'mood_bad'}}</mat-icon>
+        <mat-icon>{{quizReport?.percentage >= 80 ? 'mood' : 'mood_bad'}}</mat-icon>
         <h3>Result</h3>
-        <span>{{marks / quizReport?.answersTable.length * 100 >= 80 ? 'Passed' : 'Failed'}}</span>
+        <span>{{quizReport?.result}}</span>
       </div>
     </div>
     <hr>
@@ -40,9 +40,9 @@
     </div>
     <div fxLayout="row" fxLayoutAlign="space-between start">
       <span>{{quizReport?.answersTable.length}}</span>
-      <span>{{marks}}</span>
-      <span>{{quizReport?.answersTable.length - marks - unAttempted}}</span>
-      <span>{{unAttempted}}</span>
+      <span>{{quizReport?.marks}}</span>
+      <span>{{quizReport?.answersTable.length - quizReport?.marks - quizReport?.unAttempted}}</span>
+      <span>{{quizReport?.unAttempted}}</span>
     </div>
   </mat-card>
   <mat-card>

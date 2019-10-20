@@ -8,4 +8,8 @@ export interface SubmittedQuiz {
   date: firebase.firestore.Timestamp;
   status: 'completed' | 'auto-completed' | null;
   timeTakenInSec: number;
+  marks: number;
+  unAttempted: number;
+  percentage: number;
+  result: 'Passed' | 'Failed' | null;
 }

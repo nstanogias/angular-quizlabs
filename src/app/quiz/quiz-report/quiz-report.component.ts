@@ -17,8 +17,8 @@ export class QuizReportComponent {
   // quizReport$: Observable<SubmittedQuiz>;
   quizReport: SubmittedQuiz;
   quiz: Quiz;
-  marks = 0;
-  unAttempted = 0;
+  // marks = 0;
+  // unAttempted = 0;
 
   constructor(private db: AngularFirestore, private authService: AuthService,
               private quizService: QuizService, activatedRoute: ActivatedRoute) {
@@ -30,16 +30,14 @@ export class QuizReportComponent {
       this.quizReport = report;
       this.quiz = this.quizService.getQuizById(this.quizReport.quizId);
       console.log(this.quizReport.answersTable);
-      console.log(this.quiz.questions.forEach(question => console.log(question.answer)));
-      this.quizReport.answersTable.forEach((answer, index) => {
-        if (answer === this.quiz.questions[index].answer) {
-          this.marks++;
-        }
-        if (answer === -1) {
-          this.unAttempted++;
-        }
-      });
+      // this.quizReport.answersTable.forEach((answer, index) => {
+      //   if (answer === this.quiz.questions[index].answer) {
+      //     this.marks++;
+      //   }
+      //   if (answer === -1) {
+      //     this.unAttempted++;
+      //   }
+      // });
     });
   }
-
 }

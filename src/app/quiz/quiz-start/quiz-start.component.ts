@@ -17,11 +17,13 @@ import * as firebase from 'firebase';
 export class QuizStartComponent {
 
   quiz: Quiz;
-  progress = 0;
   currentQuestion: Question;
   currentAnswer: number;
   answers = new Array<number>();
   index = 0;
+  marks = 0;
+  unAttempted = 0;
+  percentage = 0;
   @ViewChild('cnt', {static: false}) private countdown: CountdownComponent;
 
   constructor(private dialog: MatDialog, private quizService: QuizService, private db: AngularFirestore,
@@ -54,6 +56,15 @@ export class QuizStartComponent {
   onEvent($event) {
     if ($event.left === 0) {
       // store to database
+      this.answers.forEach((answer, index) => {
+        if (answer === this.quiz.questions[index].answer) {
+          this.marks++;
+        }
+        if (answer === -1) {
+          this.unAttempted++;
+        }
+      });
+      this.percentage = this.marks / this.answers.length * 100;
       this.addDataToDatabase('auto-completed');
     }
   }
@@ -70,6 +81,15 @@ export class QuizStartComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         // store to database
+        this.answers.forEach((answer, index) => {
+          if (answer === this.quiz.questions[index].answer) {
+            this.marks++;
+          }
+          if (answer === -1) {
+            this.unAttempted++;
+          }
+        });
+        this.percentage = this.marks / this.answers.length * 100;
         this.addDataToDatabase('completed');
       } else {
         return;
@@ -85,7 +105,11 @@ export class QuizStartComponent {
       answersTable: this.answers,
       date: firebase.firestore.Timestamp.now(),
       status: status,
-      timeTakenInSec: this.quiz.timeInMinutes - (this.countdown.i.value / 1000)
+      timeTakenInSec: this.quiz.timeInMinutes - (this.countdown.i.value / 1000),
+      marks: this.marks,
+      unAttempted: this.unAttempted,
+      percentage: this.percentage,
+      result: this.percentage >= 80 ? 'Passed' : 'Failed'
     }).then(docRef => {
       this.router.navigate(['/quiz/report', docRef.id]);
     });

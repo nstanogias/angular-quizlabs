@@ -9,6 +9,7 @@ import {SubmittedQuiz} from './submittedQuiz.model';
 @Injectable({providedIn: 'root'})
 export class QuizService {
   quizzesChanged = new Subject<Quiz[]>();
+  submittedQuizzzesChanged = new Subject<SubmittedQuiz[]>();
   private quizzes: Quiz[] = [];
   private submittedQuizzes: SubmittedQuiz[] = [];
   private quizReport: SubmittedQuiz;
@@ -42,18 +43,19 @@ export class QuizService {
         }));
   }
 
-  fetchSubmittedQuizzesByUserName(username: string) {
+  fetchSubmittedQuizzesByUserName(username: string = 'test@gmail.com') {
     this.uiService.loadingStateChanged.next(true);
     this.fbSubs.push(this.db.collection('submittedQuizzes', ref => ref.where('user', '==', username))
       .valueChanges()
       .subscribe((submittedQuizzes: SubmittedQuiz[]) => {
         this.uiService.loadingStateChanged.next(false);
         this.submittedQuizzes = submittedQuizzes;
+        this.submittedQuizzzesChanged.next([...this.submittedQuizzes]);
       }, error => {
         this.uiService.loadingStateChanged.next(false);
         this.uiService.showSnackbar('Fetching submitted quizzes failed, please try again later', null, 3000);
+        this.submittedQuizzzesChanged.next(null);
       }));
-    return this.submittedQuizzes;
   }
 
   fetchSubmittedQuizById(id: string) {

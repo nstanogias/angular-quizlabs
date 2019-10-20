@@ -1,5 +1,53 @@
-<div fxLayout="column" fxLayoutAlign="center center">
-  <mat-card>
-    past attempts
-  </mat-card>
+<div fxLayoutAlign="center center">
+  <mat-form-field fxFlex="40%">
+    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
 </div>
+
+<mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Quiz</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.quizName }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="date">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.date.toDate() | date }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.status }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="marks">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Marks</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.marks | number }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="percentage">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Percentage</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.percentage | number }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="time">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Time Taken</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.timeTakenInSec }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="result">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Result</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.result }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="report">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Report</mat-header-cell>
+    <mat-cell *matCellDef="let element">report</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<mat-paginator [pageSize]="1" [pageSizeOptions]="[1, 5, 10, 20]">
+</mat-paginator>
