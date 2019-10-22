@@ -8,6 +8,8 @@ import {QuizComponent} from './quiz.component';
 import {QuizStartComponent} from './quiz-start/quiz-start.component';
 import {QuizReportComponent} from './quiz-report/quiz-report.component';
 import {CountdownModule} from 'ngx-countdown';
+import {StoreModule} from '@ngrx/store';
+import {quizReducer} from './quiz.reducer';
 
 
 @NgModule({
@@ -22,7 +24,8 @@ import {CountdownModule} from 'ngx-countdown';
   imports: [
     SharedModule,
     QuizRoutingModule,
-    CountdownModule
+    CountdownModule,
+    StoreModule.forFeature('quiz', quizReducer)
   ]
 })
 export class QuizModule {

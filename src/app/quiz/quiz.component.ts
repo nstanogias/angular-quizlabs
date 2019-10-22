@@ -1,48 +1,21 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {QuizService} from './quiz.service';
 import {Quiz} from './quiz.model';
-import {Subscription} from 'rxjs';
-import {UIService} from '../shared/ui.service';
+import * as quizReducer from './quiz.reducer';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html'
 })
-export class QuizComponent implements OnInit, OnDestroy {
+export class QuizComponent implements OnInit{
 
   quizzes: Quiz[];
-  isLoading = true;
-  private quizzesSubscription: Subscription;
-  private loadingSubscription: Subscription;
 
-  constructor(private quizService: QuizService, private uiService: UIService) {
-  }
+  constructor(private quizService: QuizService, private store: Store<quizReducer.State>) {}
 
   ngOnInit() {
-    this.loadingSubscription = this.uiService.loadingStateChanged.subscribe(
-      isLoading => {
-        this.isLoading = isLoading;
-      }
-    );
-    this.quizzesSubscription = this.quizService.quizzesChanged.subscribe(
-      quizzes => {
-        this.quizzes = quizzes;
-      }
-    );
-    this.fetchQuizzes();
-  }
-
-  fetchQuizzes() {
+    this.store.select(quizReducer.getAvailableQuizzes).subscribe( (quizzes: Quiz[]) => this.quizzes = quizzes);
     this.quizService.fetchQuizzes();
   }
-
-  ngOnDestroy() {
-    if (this.quizzesSubscription) {
-      this.quizzesSubscription.unsubscribe();
-    }
-    if (this.loadingSubscription) {
-      this.loadingSubscription.unsubscribe();
-    }
-  }
-
 }

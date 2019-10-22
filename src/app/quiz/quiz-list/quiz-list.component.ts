@@ -9,7 +9,5 @@ import {Quiz} from '../quiz.model';
 export class QuizListComponent {
   @Input() quizzes: Quiz[];
 
-  constructor() {
-  }
-
+  constructor() {}
 }

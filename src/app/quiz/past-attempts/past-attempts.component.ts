@@ -1,41 +1,29 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {AngularFirestore} from '@angular/fire/firestore';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from '../../auth/auth.service';
 import {QuizService} from '../quiz.service';
 import {SubmittedQuiz} from '../submittedQuiz.model';
-import {Subscription} from 'rxjs';
-import {UIService} from '../../shared/ui.service';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import * as quizReducer from '../quiz.reducer';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-past-attempts',
   templateUrl: './past-attempts.component.html',
   styleUrls: ['./past-attempts.component.css']
 })
-export class PastAttemptsComponent implements OnInit, AfterViewInit, OnDestroy {
+export class PastAttemptsComponent implements OnInit, AfterViewInit {
 
-  isLoading = true;
   displayedColumns = ['name', 'date', 'status', 'marks', 'percentage', 'time', 'result', 'report'];
   dataSource = new MatTableDataSource<SubmittedQuiz>();
-  private pastAttemptsSubscription: Subscription;
-  private loadingSubscription: Subscription;
 
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
-  constructor(private db: AngularFirestore, private authService: AuthService,
-              private quizService: QuizService, private uiService: UIService) {}
+  constructor(private authService: AuthService, private quizService: QuizService, private store: Store<quizReducer.State>) {}
 
   ngOnInit() {
-    this.loadingSubscription = this.uiService.loadingStateChanged.subscribe(
-      isLoading => {
-        this.isLoading = isLoading;
-      }
-    );
-    this.pastAttemptsSubscription = this.quizService.submittedQuizzzesChanged.subscribe((pastAttempts => {
-      console.log(pastAttempts);
-      this.dataSource.data = pastAttempts;
-    }));
+    this.store.select(quizReducer.getSubmittedQuizzes)
+      .subscribe( (submittedQuizzes: SubmittedQuiz[]) => this.dataSource.data = submittedQuizzes);
     this.quizService.fetchSubmittedQuizzesByUserName(this.authService.getUserEmail());
   }
 
@@ -46,14 +34,5 @@ export class PastAttemptsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   doFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  ngOnDestroy() {
-    if (this.pastAttemptsSubscription) {
-      this.pastAttemptsSubscription.unsubscribe();
-    }
-    if (this.loadingSubscription) {
-      this.loadingSubscription.unsubscribe();
-    }
   }
 }
